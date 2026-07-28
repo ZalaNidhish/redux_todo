@@ -59,10 +59,12 @@ export default function TodoGrid() {
     dispatch(removeTodo(id))
   };
 
-  const toggleComplete = (id) => {
-    setTodos(
+  const toggleComplete = async (id, title, isCompleted) => {
+    await setTodos(
       todos.map((t) => (t.id === id ? { ...t, isCompleted: !t.isCompleted } : t))
     );
+    dispatch(updateTodo({id, title, isCompleted: !isCompleted}))
+    
   };
 
 
@@ -98,7 +100,7 @@ export default function TodoGrid() {
               >
                 <div className="flex items-start gap-3">
                   <button
-                    onClick={() => toggleComplete(todo.id)}
+                    onClick={() => toggleComplete(todo.id, todo.title, todo.isCompleted)}
                     className="mt-0.5 text-stone-400 hover:text-emerald-600 transition-colors"
                   >
                     {todo.isCompleted ? (
@@ -199,7 +201,7 @@ export default function TodoGrid() {
                   <input
                     type="checkbox"
                     checked={isCompleted}
-                    onChange={(e) => setIsCompleted(e.target.checked)}
+                    onChange={(e) => {setIsCompleted(e.target.checked)}}
                     className="peer sr-only"
                   />
                   <div className="h-6 w-6 rounded-md border border-stone-300 bg-white transition-all peer-checked:border-emerald-600 peer-checked:bg-emerald-600 flex items-center justify-center">

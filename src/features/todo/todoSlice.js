@@ -37,7 +37,6 @@ export const todoSlice = createSlice({
             todo.isCompleted = action.payload.isCompleted
 
             localStorage.setItem("todos", JSON.stringify(state.todos))
-
         }
     }
 })
